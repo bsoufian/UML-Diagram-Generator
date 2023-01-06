@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Vector;
 
 public class ClassParser {
-	/*
+	
 	private Class<?> targetClass;
 
 	public ClassParser(String className) {
@@ -19,7 +19,7 @@ public class ClassParser {
 		this.targetClass = targetClass;
 		
 	}
-	
+
 	public Class<?> getSuperClass(){
 		return targetClass.getSuperclass();
 	}
@@ -53,5 +53,5 @@ public class ClassParser {
 		}
 		return classes;
 	}
-*/	
+
 }
