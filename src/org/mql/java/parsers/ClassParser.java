@@ -20,6 +20,10 @@ public class ClassParser {
 		
 	}
 
+	public String getClassName() {
+		return targetClass.getName();
+	}
+	
 	public Class<?> getSuperClass(){
 		return targetClass.getSuperclass();
 	}
