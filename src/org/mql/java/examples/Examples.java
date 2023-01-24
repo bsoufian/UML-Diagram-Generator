@@ -1,5 +1,11 @@
 package org.mql.java.examples;
 
+import java.beans.XMLEncoder;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -31,8 +37,8 @@ public class Examples {
 		
 		 Set<String> files=new HashSet<>();
 		 PackageListParsers.listOfPackage("src/", files);
-	     System.out.println("***"+files+"***" );
-	     System.out.println("------------------------------------------- ");
+	     System.out.println("<!--"+files+"-->" );
+	     System.out.println("<!-- ************************ -->  ");
 	        
 		ProjectParser projectParser = new ProjectParser("C:\\Users\\Dell\\eclipse-workspace\\UML Diagrams Generator");
 		Set<String> projectPackages = projectParser.getAllPackages();
@@ -45,7 +51,7 @@ public class Examples {
 				ClassModel classModel = new ClassModel(classParser.getClassName());
 				classModel.setAttributes(getAttrs(classParser));
 				classModel.setOperations(getOperations(classParser));
-				this.projectClasses.add(classModel);
+				this.projectClasses.add(classModel); 
 			}
 		} 
   
@@ -56,9 +62,32 @@ public class Examples {
 			ClassModelXMLFormatter xmlFormatter = new ClassModelXMLFormatter(cls);
 			String xml = xmlFormatter.formatXML();
 			System.out.println(xml);
+			try {
+				File f = new File("./resources/Output.xml");
+			      FileOutputStream fos = new FileOutputStream(f);
+			      PrintWriter pw = new PrintWriter(fos);
+			
+			      pw.write(xml);
+			      pw.flush();
+			      fos.close();
+			      pw.close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	
 		}
 	}
-	
+				/*	try {
+				FileOutputStream fos = new FileOutputStream(new File("./resources/uml.xml"));
+				XMLEncoder encoder = new XMLEncoder(fos);
+				encoder.writeObject(xml);
+				encoder.close();
+				fos.close();
+			}
+			catch(IOException ex) {
+				ex.printStackTrace();
+			}  */
+			
 	private List<Attribute> getAttrs(ClassParser parser) {
 		List<Attribute> attrs = new Vector<>();
 		Field fields[] = parser.getFields();
@@ -69,6 +98,7 @@ public class Examples {
 		}
 		return attrs;
 	}
+	
 	
 	public String toUMLVisibility(String modifier) {
 		if(modifier.contains("public")) {

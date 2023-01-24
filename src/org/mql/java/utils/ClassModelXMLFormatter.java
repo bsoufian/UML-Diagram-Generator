@@ -12,14 +12,15 @@ public class ClassModelXMLFormatter {
 	}
 	
 	public String formatXML() {
-		String xml = "<class name=\"" + cls.getName() + "\">";
-		
+		String xml = "<class name=\"" + cls.getName() + "\" >";
 		
 		xml += "<attributes>";
 		for (Attribute a : cls.getAttributes()) {
-			xml += "<attribute name=>";
-				
-			xml += "</attribute>";	
+			xml += "<attribute name=\"" + a.getName() +"\">" ; xml += "</attribute>";	
+			xml += "<attribute type=\"" + a.getType() +"\">" ; xml += "</attribute>";	
+			xml += "<attribute visibility=\"" + a.getVisibility() +"\">" ; xml += "</attribute>";	
+
+			
 		}
 			xml += "</attributes>";
 			
@@ -27,14 +28,19 @@ public class ClassModelXMLFormatter {
 		xml += "<operations>";
 
 		for (Operation o : cls.getOperations()) {
-			xml += "<operation name= >";
+			xml += "<operation name=\"" +o.getName() +"\">";xml += "</operation>";
+			xml += "<operation name=\"" +o.getVisibility() +"\">";xml += "</operation>";
+			xml += "<operation name=\"" +o.getReturnType() +"\">";xml += "</operation>";
+			xml += "<operation name=\"" +o.getParams() +"\">";xml += "</operation>";
+
 			
-			xml += "</operation>";
+			
 		}
 		xml += "</operations>"; 
 	
 		xml += "</class>";
 		return xml;
 	}
-
+	
+	
 }
